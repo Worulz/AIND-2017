@@ -90,15 +90,14 @@ class SelectorBIC(ModelSelector):
 
                 BIC = -2.0 * logL + p * logN
 
-                if score < best_score:
+                if BIC < best_score:
                     best_score = BIC
                     best_model = model
             return best_model
 
-        except Exception as e:
-            pass
+        except:
+            return self.base_model(self.n_constant)
 
-        return self.base_model(self.n_constant)
 
 class SelectorDIC(ModelSelector):
     ''' select best model based on Discriminative Information Criterion
@@ -130,18 +129,17 @@ class SelectorDIC(ModelSelector):
                     if word != self.this_word:
                         scores.append(model.score(X, lengths))
 
-                score = model.score(self.X, self.lengths) - np.mean(scores)
+                dic_score = model.score(self.X, self.lengths) - np.mean(scores)
 
-                if score > best_score:
-                        best_score = score
+                if dic_score > best_score:
+                        best_score = dic_score
                         best_model = model
 
             return best_model
 
         except:
-            pass
-
-        return self.base_model(self.n_constant)
+             return self.base_model(self.n_constant)
+       
 
 class SelectorCV(ModelSelector):
     ''' select best model based on average log Likelihood of cross-validation folds
@@ -163,18 +161,18 @@ class SelectorCV(ModelSelector):
                 scores = []
                 split_method = KFold()
                 for _ ,test in split_method.split(self.sequences):
+
                     model = self.base_model(n)
-                    X, l = combine_sequences(test, self.sequences)
-                    score.append(model.score(X,l))
+                    X,l = combine_sequences(test, self.sequences)
+
+                    scores.append(model.score(X,l))
                 score = np.mean(scores)
-                model = model
 
                 if score < best_score:
                     best_score = score
                     best_model = model
-                return best_model
+            return best_model
         except:
-            pass
-
-        return self.base_model(self.n_constant)
+            return self.base_model(self.n_constant)
+        
 
