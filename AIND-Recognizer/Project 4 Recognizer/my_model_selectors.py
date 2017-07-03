@@ -113,6 +113,8 @@ class SelectorDIC(ModelSelector):
         # TODO implement model selection based on DIC scores
         #raise NotImplementedError
 
+        # REDO
+
         try:
 
             best_score = float("-Inf")
