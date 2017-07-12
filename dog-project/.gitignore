@@ -2,7 +2,6 @@
 dogImages/
 lfw/
 test/
-testImages/
 saved_models/weights.best.from_scratch.hdf5
 saved_models/weights.best.vgg16.hdf5
 bottleneck_features/DogResnet50Data.npz
