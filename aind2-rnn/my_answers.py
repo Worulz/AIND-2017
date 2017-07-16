@@ -49,11 +49,18 @@ def build_part1_RNN(window_size):
 def cleaned_text(text):
     # punctuation = ['!', ',', '.', ':', ';', '?']
 
-    # Remove non-english characters
+    unique_chars = list(set(text))
+
+    print('unique characters: ', unique_chars)
+
+    # # Remove non-english characters
     text = re.sub(r'[^\x00-\x7F]+',' ', text)
 
-    # shorten any extra dead space created above
-    text = text.replace('  ',' ')
+    # Remove digits
+    text = re.sub("^\d+\s|\s\d+\s|\s\d+$", " ", text)
+
+    # # shorten any extra dead space created above
+    # text = text.replace('  ',' ')
 
     return text
 
