@@ -33,8 +33,11 @@ def window_transform_series(series, window_size):
 # TODO: build an RNN to perform regression on our time series input/output data
 def build_part1_RNN(window_size):
 
+    #initiate the model
     model = Sequential()
+    #add LSTM with 5 hidden layer units
     model.add(LSTM(5, input_shape=(window_size, 1)))
+    #add FC layer
     model.add(Dense(1))
 
     return model
@@ -74,9 +77,14 @@ def window_transform_text(text, window_size, step_size):
 # a single LSTM hidden layer with softmax activation, categorical_crossentropy loss 
 def build_part2_RNN(window_size, num_chars):
 
+    #initiate the model
     model = Sequential()
+    # added a LSTM model with 200 hidden layers, with an input shape
+    # the size of a window and length for the num_charts
     model.add(LSTM(200, input_shape=(window_size, num_chars)))
+    # added FC layer
     model.add(Dense(num_chars))
+    # add softmax activation
     model.add(Activation('softmax'))
 
     return model
