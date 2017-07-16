@@ -54,10 +54,14 @@ def cleaned_text(text):
     print('unique characters: ', unique_chars)
 
     # # Remove non-english characters
-    text = re.sub(r'[^\x00-\x7F]+',' ', text)
+    #text = re.sub(r'[^\x00-\x7F]+',' ', text)
 
+    text = re.sub(r'[^a-zA-Z!.?\-,:;\"\']', ' ', text)
     # Remove digits
-    text = re.sub("^\d+\s|\s\d+\s|\s\d+$", " ", text)
+    text = re.sub("^\d+", " ", text)
+
+    # remove double dashes
+    text = text.replace("--", " ")
 
     # # shorten any extra dead space created above
     # text = text.replace('  ',' ')
